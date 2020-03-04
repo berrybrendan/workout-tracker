@@ -13,6 +13,8 @@ const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const newWorkout = document.querySelector(".new-workout")
+const newWorkoutButton = document.querySelector(".workout-button");
+
 
 let workoutType = null;
 let shouldNavigateAway = false;
@@ -136,6 +138,11 @@ function clearInputs() {
   weightInput.value = "";
 }
 
+async function createNewWorkout() { 
+  await API.createWorkOut();
+  location.href = "/";
+}
+
 if(workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
@@ -149,6 +156,10 @@ if(addButton) {
   addButton.addEventListener("click", handleFormSubmit);
 }
 toast.addEventListener("animationend", handleToastAnimationEnd);
+
+if(newWorkoutButton) {
+  newWorkoutButton.addEventListener("click", createNewWorkout);
+}
 
 document
   .querySelectorAll("input")

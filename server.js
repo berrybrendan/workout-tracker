@@ -1,12 +1,11 @@
 const express = require("express");
-const logger = require("morgan");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 
-const app = express();
+const db = require("./models")
 
-app.use(logger("dev"));
+const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,8 +18,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://brendan:123abc@ds211265.m
 });
 
 // routes
-app.use(require("./routes/routes-api.js"));
-app.use(require("./routes/routes-view.js"));
+require("./routes/routes-api.js")(app);
+require("./routes/routes-html.js")(app);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
